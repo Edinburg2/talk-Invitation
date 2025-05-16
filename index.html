@@ -8,37 +8,39 @@
     body {
       font-family: 'Georgia', serif;
       background-color: #f3f3f3;
-      padding: 2rem;
       margin: 0;
+      padding: 1rem;
       color: #333;
     }
     .container {
       max-width: 700px;
       background: white;
-      padding: 2rem;
+      padding: 1.5rem;
       margin: auto;
       border-radius: 12px;
       box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
     }
     img.logo {
-      width: 120px;
+      width: 100px;
       display: block;
       margin: 0 auto 1rem;
     }
     img.temple {
       width: 100%;
+      height: auto;
       border-radius: 10px;
       margin-top: 2rem;
     }
     h1 {
       text-align: center;
-      font-size: 1.5rem;
+      font-size: 1.4rem;
       margin-bottom: 1rem;
       color: #2a4b7c;
     }
     .date {
       text-align: right;
       margin-bottom: 1rem;
+      font-size: 0.9rem;
     }
     .signature {
       margin-top: 2rem;
@@ -53,19 +55,34 @@
     }
     .rsvp a {
       display: inline-block;
-      padding: 0.7rem 1.5rem;
+      padding: 1rem 2rem;
       background-color: #2a4b7c;
       color: white;
       text-decoration: none;
-      border-radius: 6px;
+      border-radius: 8px;
       font-weight: bold;
+      font-size: 1rem;
+    }
+
+    /* Responsive styles */
+    @media (max-width: 600px) {
+      .container {
+        padding: 1rem;
+      }
+      h1 {
+        font-size: 1.2rem;
+      }
+      .rsvp a {
+        padding: 0.8rem 1.5rem;
+        font-size: 0.95rem;
+      }
     }
   </style>
 </head>
 <body>
   <div class="container">
     <div style="text-align:center; margin-bottom:20px;">
-      <img src="img/Logo.png" alt="Logo de la Iglesia" style="width:150px;">
+      <img src="img/Logo.png" alt="Logo de la Iglesia" class="logo">
     </div>
 
     <div class="date" id="current-date"></div>
@@ -78,7 +95,7 @@
       Fecha del Discurso: <strong><span id="fecha">[Fecha]</span></strong><br>
       Hora del Servicio: <strong>11:00 AM</strong><br>
       Tema del Discurso: <strong><span id="tema">[Tema]</span></strong><br>
-      Duración del Discurso: Aproximadamente <strong><span id="duracion">[Duración]</span></strong> min.
+      Duración del Discurso: <strong><span id="duracion">[Duración]</span></strong> min.
     </p>
 
     <p>Le invitamos a buscar la guía e inspiración del Espíritu Santo, a fin de que le ayudé en esta asignación. Para preparar su discurso le instamos a valerse principalmente de las Escrituras y de las palabras de los Profetas y Apóstoles Vivientes, así como a recurrir a todos los materiales aprobados por la iglesia. Si tiene alguna pregunta o necesita asistencia adicional, no dude en comunicarse con nosotros.</p>
@@ -101,14 +118,12 @@
   </div>
 
   <script>
-    // Mostrar la fecha actual en formato 07/28/2024
     const today = new Date();
     const formattedDate = today.toLocaleDateString("es-MX", {
       year: "numeric", month: "2-digit", day: "2-digit"
     });
     document.getElementById('current-date').textContent = formattedDate;
 
-    // Leer variables desde la URL
     const params = new URLSearchParams(window.location.search);
     document.getElementById('name').textContent = params.get('name') || "Discursante";
     document.getElementById('fecha').textContent = params.get('fecha') || "Fecha pendiente";
