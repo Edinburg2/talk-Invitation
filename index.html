@@ -28,7 +28,7 @@
     img.temple {
       width: 100%;
       border-radius: 10px;
-      margin-top: 1rem;
+      margin-top: 2rem;
     }
     h1 {
       text-align: center;
@@ -64,8 +64,10 @@
 </head>
 <body>
   <div class="container">
-    <img src="img/logo_de_la_iglesia_de_jesucristo_de_los_santos_de_los_ultimos_dias.svg" alt="Logo de la Iglesia" style="width:150px; margin-right:20px;">
-    <img src="img/mcallenTXTemple.webp" alt="Templo de McAllen" style="width:200px;">
+    <div style="text-align:center; margin-bottom:20px;">
+      <img src="img/lds-logo.svg" alt="Logo de la Iglesia" style="width:150px;">
+    </div>
+
     <div class="date" id="current-date"></div>
 
     <p>Estimado: <strong><span id="name">Discursante</span></strong></p>
@@ -85,7 +87,6 @@
 
     <div class="signature">
       <p>Con gratitud,</p>
-      <p> </p>
       <p><strong>El Obispado Edinburg 2</strong></p>
       <p>Obispo Noe Grimaldo – (956) 888-9885</p>
       <p>Primer Consejero Juan José De La Torre – (956) 776-1000</p>
@@ -96,18 +97,18 @@
       <a href="https://forms.gle/TkK4EYQGNbJyge1CA" target="_blank">Confirmar Asistencia</a>
     </div>
 
-    <img class="temple" src="https://newsroom.churchofjesuschrist.org/media/960x540/mcallen-texas-temple-rendering.jpg" alt="Templo de McAllen">
+    <img class="temple" src="img/mcallenTXTemple.webp" alt="Templo de McAllen">
   </div>
 
   <script>
-    // Fecha actual en formato 07/28/2024
+    // Mostrar la fecha actual en formato 07/28/2024
     const today = new Date();
     const formattedDate = today.toLocaleDateString("es-MX", {
       year: "numeric", month: "2-digit", day: "2-digit"
     });
     document.getElementById('current-date').textContent = formattedDate;
 
-    // Variables desde la URL
+    // Leer variables desde la URL
     const params = new URLSearchParams(window.location.search);
     document.getElementById('name').textContent = params.get('name') || "Discursante";
     document.getElementById('fecha').textContent = params.get('fecha') || "Fecha pendiente";
