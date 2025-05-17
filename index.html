@@ -53,7 +53,7 @@
       text-align: center;
       margin-top: 2rem;
     }
-    .rsvp a, .btn-whatsapp {
+    .rsvp a {
       display: inline-block;
       padding: 1rem 2rem;
       background-color: #2a4b7c;
@@ -65,9 +65,6 @@
       cursor: pointer;
       border: none;
     }
-    .btn-whatsapp {
-      margin-top: 1rem;
-    }
 
     /* Responsive styles */
     @media (max-width: 600px) {
@@ -77,7 +74,7 @@
       h1 {
         font-size: 1.2rem;
       }
-      .rsvp a, .btn-whatsapp {
+      .rsvp a {
         padding: 0.8rem 1.5rem;
         font-size: 0.95rem;
       }
@@ -116,9 +113,7 @@
     </div>
 
     <div class="rsvp">
-      <a href="https://forms.gle/yAQXzFRC8FmbaKET7" target="_blank">Confirmar Asistencia</a><br>
-      <!-- WhatsApp button -->
-      <button class="btn-whatsapp" id="btnWhatsapp">Enviar Invitación por WhatsApp</button>
+      <a href="https://forms.gle/yAQXzFRC8FmbaKET7" target="_blank">Confirmar Asistencia</a>
     </div>
 
     <img class="temple" src="img/temple.jpg" alt="Templo de McAllen">
@@ -138,29 +133,12 @@
     const fecha = params.get('fecha') || "Fecha pendiente";
     const tema = params.get('tema') || "Tema pendiente";
     const duracion = params.get('duracion') || "10";
-    const telefono = params.get('telefono') || ""; // Pasa el teléfono en URL si quieres
 
     // Mostrar datos en el HTML
     document.getElementById('name').textContent = name;
     document.getElementById('fecha').textContent = fecha;
     document.getElementById('tema').textContent = tema;
     document.getElementById('duracion').textContent = duracion;
-
-    // Función para abrir WhatsApp con mensaje personalizado
-    document.getElementById('btnWhatsapp').addEventListener('click', () => {
-      if (!telefono) {
-        alert('No se proporcionó número de teléfono en la URL.');
-        return;
-      }
-      // Construir el mensaje
-      const mensaje = `Estimado/a ${name}, esta es una invitación para discursar.\nFecha: ${fecha}\nTema: ${tema}\nDuración: ${duracion} min.\n\nAquí está el link de la invitación:\nhttps://edinburg2.github.io/talk-Invitation/?name=${encodeURIComponent(name)}&fecha=${encodeURIComponent(fecha)}&tema=${encodeURIComponent(tema)}&duracion=${encodeURIComponent(duracion)}`;
-
-      // Crear url para WhatsApp
-      const whatsappURL = `https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`;
-
-      // Abrir en nueva ventana
-      window.open(whatsappURL, '_blank');
-    });
   </script>
 </body>
 </html>
