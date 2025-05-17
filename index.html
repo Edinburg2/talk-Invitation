@@ -118,17 +118,35 @@
   </div>
 
   <script>
+    // Mostrar la fecha actual en formato dd/mm/yyyy
     const today = new Date();
     const formattedDate = today.toLocaleDateString("es-MX", {
       year: "numeric", month: "2-digit", day: "2-digit"
     });
     document.getElementById('current-date').textContent = formattedDate;
 
+    // Obtener parámetros de la URL
     const params = new URLSearchParams(window.location.search);
-    document.getElementById('name').textContent = params.get('name') || "Discursante";
-    document.getElementById('fecha').textContent = params.get('fecha') || "Fecha pendiente";
-    document.getElementById('tema').textContent = params.get('tema') || "Tema pendiente";
-    document.getElementById('duracion').textContent = params.get('duracion') || "10";
+    const name = params.get('name') || "Discursante";
+    const fecha = params.get('fecha') || "Fecha pendiente";
+    const tema = params.get('tema') || "Tema pendiente";
+    const duracion = params.get('duracion') || "10";
+
+    // Actualizar el contenido visible en la página
+    document.getElementById('name').textContent = name;
+    document.getElementById('fecha').textContent = fecha;
+    document.getElementById('tema').textContent = tema;
+    document.getElementById('duracion').textContent = duracion;
+
+    // Si se pasa el número de teléfono en el parámetro 'phone', abrir WhatsApp automáticamente
+    const phone = params.get('phone');
+    if (phone) {
+      const mensaje = `Estimado/a ${name}, esta es una invitación para discursar. Fecha: ${fecha}, Tema: ${tema}, Duración: ${duracion} min.`;
+      const urlWhatsapp = `https://wa.me/${phone}?text=${encodeURIComponent(mensaje)}`;
+      setTimeout(() => {
+        window.location.href = urlWhatsapp;
+      }, 1000);
+    }
   </script>
 </body>
 </html>
