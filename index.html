@@ -53,7 +53,7 @@
       text-align: center;
       margin-top: 2rem;
     }
-    .rsvp a {
+    .rsvp a, .btn-whatsapp {
       display: inline-block;
       padding: 1rem 2rem;
       background-color: #2a4b7c;
@@ -62,6 +62,11 @@
       border-radius: 8px;
       font-weight: bold;
       font-size: 1rem;
+      cursor: pointer;
+      border: none;
+    }
+    .btn-whatsapp {
+      margin-top: 1rem;
     }
 
     /* Responsive styles */
@@ -72,7 +77,7 @@
       h1 {
         font-size: 1.2rem;
       }
-      .rsvp a {
+      .rsvp a, .btn-whatsapp {
         padding: 0.8rem 1.5rem;
         font-size: 0.95rem;
       }
@@ -111,42 +116,51 @@
     </div>
 
     <div class="rsvp">
-      <a href="https://forms.gle/yAQXzFRC8FmbaKET7" target="_blank">Confirmar Asistencia</a>
+      <a href="https://forms.gle/yAQXzFRC8FmbaKET7" target="_blank">Confirmar Asistencia</a><br>
+      <!-- WhatsApp button -->
+      <button class="btn-whatsapp" id="btnWhatsapp">Enviar Invitación por WhatsApp</button>
     </div>
 
     <img class="temple" src="img/temple.jpg" alt="Templo de McAllen">
   </div>
 
   <script>
-    // Mostrar la fecha actual en formato dd/mm/yyyy
+    // Mostrar fecha actual
     const today = new Date();
     const formattedDate = today.toLocaleDateString("es-MX", {
       year: "numeric", month: "2-digit", day: "2-digit"
     });
     document.getElementById('current-date').textContent = formattedDate;
 
-    // Obtener parámetros de la URL
+    // Obtener parámetros URL
     const params = new URLSearchParams(window.location.search);
     const name = params.get('name') || "Discursante";
     const fecha = params.get('fecha') || "Fecha pendiente";
     const tema = params.get('tema') || "Tema pendiente";
     const duracion = params.get('duracion') || "10";
+    const telefono = params.get('telefono') || ""; // Pasa el teléfono en URL si quieres
 
-    // Actualizar el contenido visible en la página
+    // Mostrar datos en el HTML
     document.getElementById('name').textContent = name;
     document.getElementById('fecha').textContent = fecha;
     document.getElementById('tema').textContent = tema;
     document.getElementById('duracion').textContent = duracion;
 
-    // Si se pasa el número de teléfono en el parámetro 'phone', abrir WhatsApp automáticamente
-    const phone = params.get('phone');
-    if (phone) {
-      const mensaje = `Estimado/a ${name}, esta es una invitación para discursar. Fecha: ${fecha}, Tema: ${tema}, Duración: ${duracion} min.`;
-      const urlWhatsapp = `https://wa.me/${phone}?text=${encodeURIComponent(mensaje)}`;
-      setTimeout(() => {
-        window.location.href = urlWhatsapp;
-      }, 1000);
-    }
+    // Función para abrir WhatsApp con mensaje personalizado
+    document.getElementById('btnWhatsapp').addEventListener('click', () => {
+      if (!telefono) {
+        alert('No se proporcionó número de teléfono en la URL.');
+        return;
+      }
+      // Construir el mensaje
+      const mensaje = `Estimado/a ${name}, esta es una invitación para discursar.\nFecha: ${fecha}\nTema: ${tema}\nDuración: ${duracion} min.\n\nAquí está el link de la invitación:\nhttps://edinburg2.github.io/talk-Invitation/?name=${encodeURIComponent(name)}&fecha=${encodeURIComponent(fecha)}&tema=${encodeURIComponent(tema)}&duracion=${encodeURIComponent(duracion)}`;
+
+      // Crear url para WhatsApp
+      const whatsappURL = `https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`;
+
+      // Abrir en nueva ventana
+      window.open(whatsappURL, '_blank');
+    });
   </script>
 </body>
 </html>
